@@ -82,8 +82,7 @@ Assist library to create sql statement and by field types for [slick](https://do
 * Insert record:
 
     ```kotlin
-    val builder = StatmentBuilder
-      .insert(TABLE_NAME)
+    val builder = InsertBuilder(TABLE_NAME)
       .set(Fields.name, "Tom")
       .set(Fields.age, 10)
     ```
