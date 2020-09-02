@@ -1,0 +1,28 @@
+{
+  "name": "statement-builder",
+  "version": "0.0.0",
+  "description": "Assist library to help create sql statements for slick.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VerstSiu/slick-stage.git"
+  },
+  "keywords": [
+    "kotlin",
+    "sql",
+    "slick"
+  ],
+  "author": "verstsiu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VerstSiu/slick-stage/issues"
+  },
+  "homepage": "https://github.com/VerstSiu/slick-stage#readme",
+  "private": true
+}
