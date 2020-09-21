@@ -40,3 +40,14 @@ internal fun StringBuilder.appendQueryParams(params: Collection<FieldSearch<*>>)
   }
   return this
 }
+
+internal fun <T> StringBuilder.appendUpdateField(field: Field<T>, value: T): StringBuilder {
+  val writeValue = field.accessor.write(value)
+  append('`')
+  append(field.name)
+  append('`')
+
+  append('=')
+  append(writeValue)
+  return this
+}
