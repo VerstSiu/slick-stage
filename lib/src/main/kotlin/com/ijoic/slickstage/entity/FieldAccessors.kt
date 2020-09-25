@@ -19,7 +19,6 @@ package com.ijoic.slickstage.entity
 
 import com.ijoic.slickstage.constants.QueryConstants
 import org.apache.commons.lang.StringEscapeUtils
-import java.text.SimpleDateFormat
 
 /**
  * Field accessors
@@ -91,12 +90,14 @@ object FieldAccessors {
   )
 
   val DATETIME_SECONDS = FieldAccessor(
-    read = { readDatetimeSeconds(it.nextString()) },
-    write = { writeDatetimeSecondsOrNull(it) }
+    read = { it.nextLong() },
+    write = { writeUnixTimestamp(it) },
+    wrapSelect = { "UNIX_TIMESTAMP(`$it`)" }
   )
   val OPTIONAL_DATETIME_SECONDS = FieldAccessor(
-    read = { readDatetimeSecondsOrNull(it.nextString()) },
-    write = { writeDatetimeSecondsOrNull(it) }
+    read = { it.nextString()?.toLongOrNull() },
+    write = { writeUnixTimestampOrNull(it) },
+    wrapSelect = { "UNIX_TIMESTAMP(`$it`)" }
   )
 
   private const val NULL = QueryConstants.NULL
@@ -110,16 +111,6 @@ object FieldAccessors {
       1 -> true
       else -> null
     }
-  }
-
-  private fun readDatetimeSeconds(value: String): Long {
-    return toDatetime(value)!! / 1000L
-  }
-
-  private fun readDatetimeSecondsOrNull(value: String?): Long? {
-    return value
-      ?.let { toDatetimeOrNull(it) }
-      ?.let { it / 1000L }
   }
 
   /* Read :END */
@@ -169,48 +160,17 @@ object FieldAccessors {
     return writeAsBoolean(value)
   }
 
-  private fun writeDatetimeSeconds(value: Long): String {
-    return "'${toDatetimeText(value * 1000L)}'"
+  private fun writeUnixTimestamp(value: Long): String {
+    return "FROM_UNIXTIME($value)"
   }
 
-  private fun writeDatetimeSecondsOrNull(value: Long?): String {
+  private fun writeUnixTimestampOrNull(value: Long?): String {
     if (value == null) {
       return NULL
     }
-    return writeDatetimeSeconds(value)
+    return writeUnixTimestamp(value)
   }
 
   /* Write :END */
-
-  /* Datetime */
-
-  private val datetimeFormatLocal = object : ThreadLocal<SimpleDateFormat>() {
-    override fun initialValue(): SimpleDateFormat {
-      return SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    }
-  }
-  private val responseFormatLocal = object : ThreadLocal<SimpleDateFormat>() {
-    override fun initialValue(): SimpleDateFormat {
-      return SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
-    }
-  }
-
-  private fun toDatetimeOrNull(text: String): Long? {
-    return this.runCatching { toDatetime(text) }.getOrNull()
-  }
-
-  @Throws(Exception::class)
-  private fun toDatetime(text: String): Long? {
-    if (text.contains('.')) {
-      return responseFormatLocal.get().parse(text)?.time
-    }
-    return datetimeFormatLocal.get().parse(text)?.time
-  }
-
-  private fun toDatetimeText(timestamp: Long): String {
-    return datetimeFormatLocal.get().format(timestamp)
-  }
-
-  /* Datetime :END */
 
 }

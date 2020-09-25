@@ -33,7 +33,7 @@ class UpdateChildBuilder internal constructor(
   fun <T> set(field: Field<T>, value: T): UpdateChildBuilder {
     contentBuilder
       .append(',')
-      .appendQueryField(field, value)
+      .appendUpdateField(field, value)
     return this
   }
 

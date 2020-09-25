@@ -34,7 +34,7 @@ class UpdateTopBuilder internal constructor(
   fun <T> set(field: Field<T>, value: T): UpdateChildBuilder {
     contentBuilder
       .append(" SET ")
-      .appendQueryField(field, value)
+      .appendUpdateField(field, value)
     return UpdateChildBuilder(contentBuilder)
   }
 
