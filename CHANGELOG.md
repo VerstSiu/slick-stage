@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.1-alpha.2](https://github.com/VerstSiu/slick-stage/compare/v0.0.1-alpha.1...v0.0.1-alpha.2) (2020-09-25)
+
+
+### Features
+
+* Add value check for OPTIONAL_DATETIME_SECONDS ([31d93dc](https://github.com/VerstSiu/slick-stage/commit/31d93dc1ad2a1ae21e0624ec670fe947a37ca227))
+
 ### [0.0.1-alpha.1](https://github.com/VerstSiu/slick-stage/compare/v0.0.1-alpha.0...v0.0.1-alpha.1) (2020-09-25)
 
 
