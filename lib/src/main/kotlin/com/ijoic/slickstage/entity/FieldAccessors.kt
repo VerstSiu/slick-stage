@@ -95,7 +95,7 @@ object FieldAccessors {
     wrapSelect = { "UNIX_TIMESTAMP(`$it`)" }
   )
   val OPTIONAL_DATETIME_SECONDS = FieldAccessor(
-    read = { it.nextString()?.toLongOrNull() },
+    read = { it.nextString()?.toLongOrNull()?.takeIf { value -> value > 0 } },
     write = { writeUnixTimestampOrNull(it) },
     wrapSelect = { "UNIX_TIMESTAMP(`$it`)" }
   )
