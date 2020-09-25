@@ -29,6 +29,8 @@ data class Field<T>(
   val accessor: FieldAccessor<T>
 ) {
 
+  internal val selectFieldName = accessor.wrapSelect(name)
+
   fun read(row: SlickRow): T {
     return accessor.read(row)
   }

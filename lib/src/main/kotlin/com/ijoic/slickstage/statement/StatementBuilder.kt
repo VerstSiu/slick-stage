@@ -47,7 +47,7 @@ open class StatementBuilder internal constructor(
       return FromBuilder(
         StringBuilder()
           .append("SELECT ")
-          .append(field.joinToString(",") { "`${it.name}`" })
+          .append(field.joinToString(",") { it.selectFieldName })
       )
     }
 

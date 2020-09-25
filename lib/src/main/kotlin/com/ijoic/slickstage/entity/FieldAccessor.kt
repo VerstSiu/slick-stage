@@ -26,5 +26,6 @@ import akka.stream.alpakka.slick.javadsl.SlickRow
  */
 class FieldAccessor<T>(
   val read: (SlickRow) -> T,
-  val write: (value: T) -> String
+  val write: (value: T) -> String,
+  val wrapSelect: ((String) -> String) = { "`$it`" }
 )
